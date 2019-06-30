@@ -1,0 +1,30 @@
+﻿@model WebStore.Models.Employee
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewpoint" content="width=device-width" charset="utf-8" />
+    <title>Index</title>
+</head>
+<body>
+    <p>Детальные параметры работника</p>
+    <label>@Html.ActionLink("Вернуться к списку", "Index");</label>
+    <table>          
+        <tr>
+            <td>Имя</td>
+            <td>Фамилия</td>
+            <td>Отчество</td>
+            <td>Возраст</td>
+            <td>Дата рождения</td>
+            <td>Пол мужской</td>
+        </tr>
+        <tr>
+            <td>@Model.FirstName</td>
+            <td>@Model.SurName</td>
+            <td>@Model.Patronomic</td>
+            <td>@Model.Age</td>
+            <td>@Model.BornDate</td>
+            <td>@Model.Male</td>
+        </tr>        
+    </table>
+</body>
+</html>
