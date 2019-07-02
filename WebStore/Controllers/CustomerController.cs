@@ -9,7 +9,7 @@ using WebStore.Models;
 
 namespace WebStore.Controllers
 {    
-    public class HomeController : Controller
+    public class CustomerController : Controller
     {
         List<Employee> myEmployees = new List<Employee>()
         {
@@ -22,14 +22,14 @@ namespace WebStore.Controllers
             },
             new Employee
             {
-                Id = 1,
+                Id = 2,
                 FirstName = "Петр",
                 SurName = "Петров",
                 Age = 27
             },
             new Employee
             {
-                Id = 1,
+                Id = 3,
                 FirstName = "Сидор",
                 SurName = "Сидоров",
                 Age = 12
