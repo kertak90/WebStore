@@ -11,15 +11,52 @@ namespace WebStore.Controllers
     {
         public IActionResult Index()
         {
-            //return Content("12345");
             return View();
         }
 
         public IActionResult NotFound()
         {
-            //return Content("12345");
             return View();
         }
 
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        public IActionResult BlogList()
+        {
+            return View();
+        }
+
+        public IActionResult BlogSingle()
+        {
+            return View();
+        }
+
+        public IActionResult Products()
+        {
+            return View();
+        }
+
+        public IActionResult ProductDetails()
+        {
+            return View();
+        }
+
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+
+        public IActionResult Cart()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
     }
 }
