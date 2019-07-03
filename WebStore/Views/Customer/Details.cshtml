@@ -1,4 +1,8 @@
-﻿@model WebStore.Models.Employee
+﻿@{
+    ViewData["Title"] = "Детали рабочего";
+}
+
+@model WebStore.Models.Employee
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,9 +10,9 @@
     <title>Index</title>
 </head>
 <body>
-    <p>Детальные параметры работника</p>
+    <p>Детальные параметры работника:</p>
     <label>@Html.ActionLink("Вернуться к списку", "Index");</label>
-    <table>          
+    <table>
         <tr>
             <td>Имя</td>
             <td>Фамилия</td>
@@ -24,7 +28,7 @@
             <td>@Model.Age</td>
             <td>@Model.BornDate</td>
             <td>@Model.Male</td>
-        </tr>        
+        </tr>
     </table>
 </body>
 </html>
