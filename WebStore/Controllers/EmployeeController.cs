@@ -52,6 +52,7 @@ namespace WebStore.Controllers
             return View(model);
         }
 
+        //Не работает маршрутизация приведенная на занятии с id
         [HttpPost]
         //[Route("{Edit/id?}")]
         public IActionResult Edit(Employee model)
@@ -74,7 +75,7 @@ namespace WebStore.Controllers
             _employees.Commit();
             return RedirectToAction(nameof(Index));
         }
-
+        
         [Route("delete")]
         public IActionResult Delete(int id)
         {
