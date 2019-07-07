@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebStore.Infrastructure;
 
 namespace WebStore
 {
@@ -34,6 +35,19 @@ namespace WebStore
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseWelcomePage("/welcome");
+
+            //app.Map("/index", CustomIndexHandler);
+
+            //app.Use(async (context, next) =>
+            //{
+            //    await context.Response.WriteAsync("Hi From Use Method");
+            //    await next.Invoke();
+            //});
+
+            //app.UseMiddleware<TokenMiddleware>();
+
+
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
@@ -49,6 +63,14 @@ namespace WebStore
             //{
             //    await context.Response.WriteAsync(hello);
             //});
+        }
+
+        private void CustomIndexHandler(IApplicationBuilder obj)
+        {
+            obj.Run(async context =>
+            {
+                await context.Response.WriteAsync("Custom Index Handler");
+            });
         }
     }
 }

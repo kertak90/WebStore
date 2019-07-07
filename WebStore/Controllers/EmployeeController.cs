@@ -9,7 +9,8 @@ using WebStore.Models;
 
 namespace WebStore.Controllers
 {    
-    public class CustomerController : Controller
+    [Route("users")]
+    public class EmployeeController : Controller
     {
         List<Employee> myEmployees = new List<Employee>()
         {
@@ -35,15 +36,19 @@ namespace WebStore.Controllers
                 Age = 12
             }
         };
+
+        [Route("all")]
         public IActionResult Index()
         {
             //return Content("12345");
             return View(myEmployees) ;
         }
 
+        [Route("{id}")]
         public IActionResult Details(int id)
         {
             //return Content("12345");
+            //throw new ApplicationException("что-то пошло не так");
             return View(myEmployees.FirstOrDefault(p => p.Id == id));
         }
     }
