@@ -6,50 +6,80 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Models;
+using WebStore.Infrastructure.Interfaces;
 
 namespace WebStore.Controllers
-{    
+{
     [Route("users")]
     public class EmployeeController : Controller
     {
-        List<Employee> myEmployees = new List<Employee>()
-        {
-            new Employee
-            {
-                Id = 1,
-                FirstName = "Иван",
-                SurName = "Иванов",
-                Age = 22
-            },
-            new Employee
-            {
-                Id = 2,
-                FirstName = "Петр",
-                SurName = "Петров",
-                Age = 27
-            },
-            new Employee
-            {
-                Id = 3,
-                FirstName = "Сидор",
-                SurName = "Сидоров",
-                Age = 12
-            }
-        };
+        private readonly IEmployeesData _employees;
 
+        public EmployeeController(IEmployeesData employees)
+        {
+            _employees = employees;
+        }
         [Route("all")]
         public IActionResult Index()
         {
             //return Content("12345");
-            return View(myEmployees) ;
+            return View(_employees.GetAll());
         }
 
         [Route("{id}")]
         public IActionResult Details(int id)
         {
-            //return Content("12345");
-            //throw new ApplicationException("что-то пошло не так");
-            return View(myEmployees.FirstOrDefault(p => p.Id == id));
+            var employee = _employees.GetById(id);
+            if (ReferenceEquals(employee, null)) return NotFound();
+            return View(employee);
+        }
+
+        [HttpGet]
+        //[Route("{edit/id?}")]
+        public IActionResult Edit(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return View(new Employee());
+            }
+
+            Employee model = _employees.GetById(id.Value);
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        //[Route("{Edit/id?}")]
+        public IActionResult Edit(Employee model)
+        {
+            if (model.Id > 0)
+            {
+                var dbItem = _employees.GetById(model.Id);
+
+                if (dbItem == null) return NotFound();
+
+                dbItem.FirstName = model.FirstName;
+                dbItem.SurName = model.SurName;
+                dbItem.Age = model.Age;
+                dbItem.Male = model.Male;
+                
+            }
+            {
+                _employees.AddNew(model);
+            }
+            _employees.Commit();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Route("delete")]
+        public IActionResult Delete(int id)
+        {
+            _employees.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -12,7 +12,7 @@
 <body>
     <p>Детальные параметры работника:</p>
     <label>@Html.ActionLink("Вернуться к списку", "Index");</label>
-    <table>
+    <table class="table">
         <tr>
             <td>Имя</td>
             <td>Фамилия</td>
@@ -27,7 +27,7 @@
             <td>@Model.Patronomic</td>
             <td>@Model.Age</td>
             <td>@Model.BornDate</td>
-            <td>@Model.Male</td>
+            <td>@Model.Male</td>            
         </tr>
     </table>
 </body>

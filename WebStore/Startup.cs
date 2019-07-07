@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.Infrastructure;
+using WebStore.Infrastructure.Implementations;
+using WebStore.Infrastructure.Interfaces;
 
 namespace WebStore
 {
@@ -24,7 +26,13 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            //services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new SimpleActionFilter());      //Таким образом мы повесили фильтр на все методы нашего приложения
+            });
+
+            services.AddSingleton<IEmployeesData, InMemoryEmployeeData>();  //Этот объект будет жить в течении жизни нашего приложения
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
