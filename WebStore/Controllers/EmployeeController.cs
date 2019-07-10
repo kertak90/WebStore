@@ -57,6 +57,17 @@ namespace WebStore.Controllers
         //[Route("{Edit/id?}")]
         public IActionResult Edit(Employee model)
         {
+            if (model.Age <= 100 || model.Age >= 18)                //Задаем пользовательскую валидацию
+            {
+                ModelState.TryAddModelError("Age", "Пользователь должен быть совершеннолетним");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);                                 //Отправляем представление с ответом валидации
+            }
+
+
             if (model.Id > 0)
             {
                 var dbItem = _employees.GetById(model.Id);

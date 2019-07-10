@@ -33,6 +33,8 @@ namespace WebStore
             });
 
             services.AddSingleton<IEmployeesData, InMemoryEmployeeData>();  //Этот объект будет жить в течении жизни нашего приложения
+
+            services.AddSingleton<IProductService, InMemoryProductService>();  //Этот объект будет жить в течении жизни нашего приложения
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
