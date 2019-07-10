@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebStore.Infrastructure;
 
 namespace WebStore.Controllers
 {
     public class HomeController : Controller
     {
+        [SimpleActionFilter]
         public IActionResult Index()
         {
             return View();
@@ -30,16 +32,6 @@ namespace WebStore.Controllers
         }
 
         public IActionResult BlogSingle()
-        {
-            return View();
-        }
-
-        public IActionResult Products()
-        {
-            return View();
-        }
-
-        public IActionResult ProductDetails()
         {
             return View();
         }
