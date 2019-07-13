@@ -39,6 +39,9 @@
     <Content Update="Views\Catalog\Partial\_BrandsProducts.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Shared\Components\Brands\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\Components\Sections\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
