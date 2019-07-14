@@ -21,7 +21,9 @@
                             <input type="checkbox" class="checkbox">
                             Keep me signed in
                         </span>
-                        <button type="submit" class="btn btn-default" asp-controller="Home" asp-action="Login">Login</button>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                        </div>
                     </form>
                 </div><!--/login form-->
             </div>
@@ -39,7 +41,9 @@
                         <input asp-for="UserEmail" class="form-control" />
                         <label asp-for="UserPassword" class="control-label"></label>
                         <input asp-for="UserPassword" class="form-control" />
-                        <button type="submit" class="btn btn-default">Signup</button>
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                        </div>
                     </form>
                 </div><!--/sign up form-->
             </div>

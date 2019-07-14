@@ -63,9 +63,9 @@ namespace WebStore.Controllers
         [HttpPost]
         public IActionResult Login(LoginUser user)
         {
-            bool nameEmpty = String.IsNullOrEmpty(user.UserName);
-            bool emailEmpty = String.IsNullOrEmpty(user.UserEmail);
-            bool passEmpty = String.IsNullOrEmpty(user.UserPassword);
+            bool nameEmpty = !String.IsNullOrEmpty(user.UserName);
+            bool emailEmpty = !String.IsNullOrEmpty(user.UserEmail);
+            bool passEmpty = !String.IsNullOrEmpty(user.UserPassword);
 
             if(nameEmpty && emailEmpty && passEmpty)
             {
