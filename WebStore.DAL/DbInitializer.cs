@@ -431,6 +431,47 @@ namespace WebStore.DAL
                 context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].Products OFF");
                 trans.Commit();
             }
+            var _applicationUsers = new List<ApplicationUser>()
+            {
+                new ApplicationUser
+                {
+                    Id = 1,
+                    FirstName = "Иван",
+                    SurName = "Иванов",
+                    Patronomic = "Иванов",
+                    Age = 22,
+                    Male = true
+                },
+                new ApplicationUser
+                {
+                    Id = 2,
+                    FirstName = "Петр",
+                    SurName = "Петров",
+                    Patronomic = "Петрович",
+                    Age = 27,
+                    Male = true
+                },
+                new ApplicationUser
+                {
+                    Id = 3,
+                    FirstName = "Сидор",
+                    SurName = "Сидоров",
+                    Patronomic = "Сидорович",
+                    Age = 12,
+                    Male = true
+                }
+            };
+            using (var trans = context.Database.BeginTransaction())
+            {
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].Users ON");
+                foreach (var user in _applicationUsers)
+                {
+                    context.ApplicationUsers.Add(user);
+                }
+                context.SaveChanges();
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].Users OFF");
+                trans.Commit();
+            }
         }
     }
 }

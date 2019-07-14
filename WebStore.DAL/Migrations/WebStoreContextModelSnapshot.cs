@@ -19,6 +19,29 @@ namespace WebStore.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("WebStore.Domain.Entities.ApplicationUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Age");
+
+                    b.Property<DateTime>("BornDate");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<bool>("Male");
+
+                    b.Property<string>("Patronomic");
+
+                    b.Property<string>("SurName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("WebStore.Domain.Entities.Brand", b =>
                 {
                     b.Property<int>("Id")
