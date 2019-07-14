@@ -37,9 +37,8 @@ namespace WebStore
             services.AddSingleton<IEmployeesData, InMemoryEmployeeData>();  //Этот объект будет жить в течении жизни нашего приложения
 
             //services.AddSingleton<IProductService, InMemoryProductService>();  //Этот объект будет жить в течении жизни нашего приложения
-            services.AddScoped<IProductService, SqlProductService>();               //Этот объект будет жить в течении жизни нашего приложения
+            services.AddScoped<IProductService, SqlProductService>();  //Этот объект будет жить в течении жизни нашего приложения
 
-            //Подключили класс WebStoreContext в который передали строку подключения
             services.AddDbContext<WebStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
