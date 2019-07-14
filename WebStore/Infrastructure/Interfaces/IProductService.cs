@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebStore.Domain.Entities;
+using WebStore.Domain.Filter;
 
 namespace WebStore.Infrastructure.Interfaces
 {
@@ -10,5 +11,6 @@ namespace WebStore.Infrastructure.Interfaces
     {
         IEnumerable<Section> GetSections();
         IEnumerable<Brand> GetBrands();
+        IEnumerable<Product> GetProducts(ProductFilter filter);
     }
 }

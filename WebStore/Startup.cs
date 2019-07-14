@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebStore.Infrastructure;
 using WebStore.Infrastructure.Implementations;
 using WebStore.Infrastructure.Interfaces;
+using WebStore.DAL;
 
 namespace WebStore
 {
@@ -34,7 +36,10 @@ namespace WebStore
 
             services.AddSingleton<IEmployeesData, InMemoryEmployeeData>();  //Этот объект будет жить в течении жизни нашего приложения
 
-            services.AddSingleton<IProductService, InMemoryProductService>();  //Этот объект будет жить в течении жизни нашего приложения
+            //services.AddSingleton<IProductService, InMemoryProductService>();  //Этот объект будет жить в течении жизни нашего приложения
+            services.AddScoped<IProductService, SqlProductService>();  //Этот объект будет жить в течении жизни нашего приложения
+
+            services.AddDbContext<WebStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

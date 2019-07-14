@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebStore.Domain.Filter;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using WebStore.Domain.Entities;
-using WebStore.Infrastructure.Interfaces;
 
-namespace WebStore.Infrastructure.Implementations
+namespace WebStore.DAL
 {
-    public class InMemoryProductService : IProductService
+    public class DbInitializer
     {
-        List<Section> _sections;
-        List<Brand> _brands;
-        List<Product> _products;
-
-        public InMemoryProductService()
+        public static void Initialize(WebStoreContext context)
         {
-            _sections = new List<Section>
+            //Если базы данных не существует, то метод создаст ее, если база данных есть то не будет создавать
+            context.Database.EnsureCreated();
+            if (context.Products.Any()) return;
+
+            //Если база данных пустая, то заполним ее
+
+            var _sections = new List<Section>
             {
                 new Section()
                 {
@@ -229,7 +230,18 @@ namespace WebStore.Infrastructure.Implementations
                     ParentId = null
                 }
             };
-            _brands = new List<Brand>()
+            using (var trans = context.Database.BeginTransaction())
+            {
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].Sections ON");
+                foreach(var section in _sections)
+                {
+                    context.Sections.Add(section);
+                }
+                context.SaveChanges();
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].Sections OFF");
+                trans.Commit();
+            }
+            var _brands = new List<Brand>()
             {
                 new Brand()
                 {
@@ -274,7 +286,18 @@ namespace WebStore.Infrastructure.Implementations
                     Order = 6
                 },
             };
-            _products = new List<Product>()
+            using (var trans = context.Database.BeginTransaction())
+            {
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].Brands ON");
+                foreach (var brand in _brands)
+                {
+                    context.Brands.Add(brand);
+                }
+                context.SaveChanges();
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].Brands OFF");
+                trans.Commit();
+            }
+            var _products = new List<Product>()
             {
                 new Product()
                 {
@@ -397,26 +420,17 @@ namespace WebStore.Infrastructure.Implementations
                     BrandId = 3
                 },
             };
-        }
-        public IEnumerable<Brand> GetBrands()
-        {
-            return _brands;
-        }
-
-        public IEnumerable<Product> GetProducts(ProductFilter filter)
-        {
-            var products = _products;
-            if (filter.SectionId.HasValue)
-                products = products.Where(p => p.SectionId == filter.SectionId).ToList();
-            if (filter.BrandId.HasValue)
-                products = products.Where(p => p.BrandId == filter.BrandId).ToList();
-
-            return products;
-        }
-
-        public IEnumerable<Section> GetSections()
-        {
-            return _sections;
+            using (var trans = context.Database.BeginTransaction())
+            {
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].Products ON");
+                foreach (var product in _products)
+                {
+                    context.Products.Add(product);
+                }
+                context.SaveChanges();
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].Products OFF");
+                trans.Commit();
+            }
         }
     }
 }

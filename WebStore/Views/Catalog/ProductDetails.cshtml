@@ -16,9 +16,10 @@
 
 
                     <!--await Html.PartialAsync("Partial/_CategoryProducts")-->
-                    @await Component.InvokeAsync("Sections")
-
-                    @await Html.PartialAsync("Partial/_BrandsProducts")
+                    @*@await Component.InvokeAsync("Sections")
+                    @await Html.PartialAsync("Partial/_BrandsProducts")*@
+                    <vc:sections />
+                    <vc:brands />
 
                     <div class="price-range">
                         <!--price-range-->
