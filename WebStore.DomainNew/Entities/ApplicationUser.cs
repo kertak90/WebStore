@@ -18,5 +18,7 @@ namespace WebStore.Domain.Entities
         public int Age { get; set; }
         public DateTime BornDate { get; set; }
         public bool Male { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

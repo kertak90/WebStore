@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebStore.DAL;
 
 namespace WebStore.DAL.Migrations
 {
     [DbContext(typeof(WebStoreContext))]
-    partial class WebStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20190714162315_EmailAndPasswordAdded")]
+    partial class EmailAndPasswordAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,25 +111,6 @@ namespace WebStore.DAL.Migrations
                     b.ToTable("Sections");
                 });
 
-            modelBuilder.Entity("WebStore.Domain.Entities.Session", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("ApplicationUserId");
-
-                    b.Property<DateTime>("BeginTime");
-
-                    b.Property<DateTime>("EndTime");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("Sessions");
-                });
-
             modelBuilder.Entity("WebStore.Domain.Entities.Product", b =>
                 {
                     b.HasOne("WebStore.Domain.Entities.Brand", "Brand")
@@ -145,13 +128,6 @@ namespace WebStore.DAL.Migrations
                     b.HasOne("WebStore.Domain.Entities.Section", "ParentSection")
                         .WithMany()
                         .HasForeignKey("ParentId");
-                });
-
-            modelBuilder.Entity("WebStore.Domain.Entities.Session", b =>
-                {
-                    b.HasOne("WebStore.Domain.Entities.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
                 });
 #pragma warning restore 612, 618
         }
