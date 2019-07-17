@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-5">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
@@ -70,8 +70,10 @@
                         </ul>
                     </div>
                 </div>
+                <div class="col-sm-3">
+                    @await  Component.InvokeAsync("LoginLogout")
+                </div>
             </div>
-        </div>
     </div><!--/header-middle-->
 
     <div class="header-bottom">

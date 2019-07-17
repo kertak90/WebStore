@@ -52,40 +52,6 @@ namespace WebStore.Controllers
         public IActionResult Cart()
         {
             return View();
-        }
-
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Login(LoginUser user)
-        {
-            bool nameEmpty = !String.IsNullOrEmpty(user.UserName);
-            bool emailEmpty = !String.IsNullOrEmpty(user.UserEmail);
-            bool passEmpty = !String.IsNullOrEmpty(user.UserPassword);
-
-            if(nameEmpty && emailEmpty && passEmpty)
-            {
-                //New User
-                _context.ApplicationUsers.Add(new Domain.Entities.ApplicationUser()
-                {
-                    FirstName = user.UserName,
-                    Email = user.UserEmail,
-                    Password = user.UserPassword
-                });
-                _context.SaveChanges();
-            }
-            else if(nameEmpty && emailEmpty)
-            {
-                _context.Sessions.Add(new Domain.Entities.Session()
-                {
-
-                });
-            }
-            return View();
-        }
+        }        
     }
 }
