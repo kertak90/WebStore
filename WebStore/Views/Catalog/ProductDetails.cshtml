@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Детали товара";
+﻿@using WebStore.ViewModels
+@model ProductViewModel
+@{
+    ViewData["Title"] = "Товар: " + Model.Name;
 }
 
 <section id="advertisement">

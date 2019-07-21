@@ -9,6 +9,8 @@ namespace WebStore.ViewModels
 {
     public class ProductViewModel : INamedEntity, IOrderedEntity
     {
+        public string BrandName;
+
         public int Id { get; set; }
         public string Name { get; set; }
         public int Order { get; set; }
