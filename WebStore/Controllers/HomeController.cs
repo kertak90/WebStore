@@ -4,12 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebStore.DAL;
+using WebStore.DomainNew.Filters;
 using WebStore.Infrastructure;
+using WebStore.Models;
 
 namespace WebStore.Controllers
 {
     public class HomeController : Controller
     {
+        private WebStoreContext _context;
+        public HomeController(WebStoreContext context)
+        {
+            _context = context;
+        }
         [SimpleActionFilter]
         public IActionResult Index()
         {
@@ -44,11 +52,6 @@ namespace WebStore.Controllers
         public IActionResult Cart()
         {
             return View();
-        }
-
-        public IActionResult Login()
-        {
-            return View();
-        }
+        }        
     }
 }

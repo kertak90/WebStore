@@ -10,8 +10,8 @@ using WebStore.DAL;
 namespace WebStore.DAL.Migrations
 {
     [DbContext(typeof(WebStoreContext))]
-    [Migration("20190714132027_Initial")]
-    partial class Initial
+    [Migration("20190714165811_AddSessionsTable")]
+    partial class AddSessionsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,33 @@ namespace WebStore.DAL.Migrations
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("WebStore.Domain.Entities.ApplicationUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Age");
+
+                    b.Property<DateTime>("BornDate");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<bool>("Male");
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("Patronomic");
+
+                    b.Property<string>("SurName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
 
             modelBuilder.Entity("WebStore.Domain.Entities.Brand", b =>
                 {
@@ -45,6 +72,8 @@ namespace WebStore.DAL.Migrations
                     b.Property<int?>("BrandId");
 
                     b.Property<string>("ImageUrl");
+
+                    b.Property<string>("Manufacturer");
 
                     b.Property<string>("Name");
 
@@ -82,6 +111,25 @@ namespace WebStore.DAL.Migrations
                     b.ToTable("Sections");
                 });
 
+            modelBuilder.Entity("WebStore.Domain.Entities.Session", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ApplicationUserId");
+
+                    b.Property<DateTime>("BeginTime");
+
+                    b.Property<DateTime>("EndTime");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Sessions");
+                });
+
             modelBuilder.Entity("WebStore.Domain.Entities.Product", b =>
                 {
                     b.HasOne("WebStore.Domain.Entities.Brand", "Brand")
@@ -99,6 +147,13 @@ namespace WebStore.DAL.Migrations
                     b.HasOne("WebStore.Domain.Entities.Section", "ParentSection")
                         .WithMany()
                         .HasForeignKey("ParentId");
+                });
+
+            modelBuilder.Entity("WebStore.Domain.Entities.Session", b =>
+                {
+                    b.HasOne("WebStore.Domain.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
                 });
 #pragma warning restore 612, 618
         }
