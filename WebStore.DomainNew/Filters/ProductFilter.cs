@@ -10,5 +10,6 @@ namespace WebStore.Domain.Filter
     {
         public int? SectionId { get; set; }
         public int? BrandId { get; set; }
+        public List<int> Ids { get; set; }
     }
 }

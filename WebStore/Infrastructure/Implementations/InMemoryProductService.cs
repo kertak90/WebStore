@@ -403,6 +403,11 @@ namespace WebStore.Infrastructure.Implementations
             return _brands;
         }
 
+        public Product GetProduct(int id)
+        {
+            return _products.FirstOrDefault(p => p.Id == id);
+        }
+
         public IEnumerable<Product> GetProducts(ProductFilter filter)
         {
             var products = _products;

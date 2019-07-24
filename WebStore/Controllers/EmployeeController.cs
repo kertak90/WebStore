@@ -7,10 +7,12 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Models;
 using WebStore.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebStore.Controllers
 {
     [Route("users")]
+    [Authorize]             //Функционал этого пользователя будет доступен только для авторизованных пользователей
     public class EmployeeController : Controller
     {
         private readonly IEmployeesData _employees;
@@ -20,6 +22,7 @@ namespace WebStore.Controllers
             _employees = employees;
         }
         [Route("all")]
+        //[AllowAnonymous]            //Разрешить анонимный доступ
         public IActionResult Index()
         {
             //return Content("12345");
@@ -36,6 +39,7 @@ namespace WebStore.Controllers
 
         [HttpGet]
         //[Route("{edit/id?}")]
+        [Authorize(Roles = "Admin")]    //разрешить доступ к методу только пользователю Admin
         public IActionResult Edit(int? id)
         {
             if (!id.HasValue)
@@ -55,9 +59,10 @@ namespace WebStore.Controllers
         //Не работает маршрутизация приведенная на занятии с id
         [HttpPost]
         //[Route("{Edit/id?}")]
+        [Authorize(Roles = "Admin")]    //разрешить доступ к методу только пользователю Admin
         public IActionResult Edit(Employee model)
         {
-            if (model.Age <= 100 || model.Age >= 18)                //Задаем пользовательскую валидацию
+            if (model.Age >= 100 || model.Age <= 18)                //Задаем пользовательскую валидацию
             {
                 ModelState.TryAddModelError("Age", "Пользователь должен быть совершеннолетним");
             }
@@ -88,6 +93,7 @@ namespace WebStore.Controllers
         }
         
         [Route("delete")]
+        [Authorize(Roles = "Admin")]    //разрешить доступ к методу только пользователю Admin
         public IActionResult Delete(int id)
         {
             _employees.Delete(id);
