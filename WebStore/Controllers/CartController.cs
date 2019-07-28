@@ -8,8 +8,6 @@ using WebStore.Infrastructure.Interfaces;
 
 namespace WebStore.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class CartController : Controller
     {
         private readonly ICartService _cartService;
@@ -20,6 +18,13 @@ namespace WebStore.Controllers
         }
         public IActionResult Details()
         {
+            //var model = new OrderDetailsViewModel()
+            //{
+            //    CartViewModel = _cartService.TransformCart(),
+            //    OrderViewModel = new OrderViewModel()
+            //};
+
+            //return View(model);
             return View("Details", _cartService.TransformCart());
         }
         public IActionResult DecrementFromCart(int id)
@@ -40,7 +45,7 @@ namespace WebStore.Controllers
         public IActionResult AddToCart(int id, string returnUrl)
         {
             _cartService.AddToCart(id);
-            return RedirectToAction(returnUrl);
+            return Redirect(returnUrl);
         }
         
     }
